@@ -16,5 +16,11 @@ namespace Grupo4_Clave4
         {
             InitializeComponent();
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Clases.CConexion objetoConexion = new Clases.CConexion();
+            objetoConexion.EstablecerConexion();
+        }
     }
 }

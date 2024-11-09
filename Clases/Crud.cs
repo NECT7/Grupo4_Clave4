@@ -8,5 +8,6 @@ namespace Grupo4_Clave4.Clases
 {
     class Crud
     {
+
     }
 }

@@ -14,20 +14,15 @@ namespace Grupo4_Clave4.Clases
         // </sumary>
     {
         MySqlConnection conex = new MySqlConnection();
-
         //Variables estaticas que almacenan las credenciales para la conexion a la base de datos
         static string servidor = "localhost"; //servidor donde se encuentra la base
         static string db = "Clave4_Grupo4DB"; //Nombre de la base de datos
         static string usuario = "root"; //Nombre de usuario
         static string port = "3306"; //puerto
         static string password = ""; //contreña de la conexion
-
-
         //Cadena de caracteres para ejecutar la conexion
         String cadenaConexion = "server=" + servidor + ";" + "port=" + port + ";" + "user id=" + usuario
             + ";" + "password=" + password + ";" + "database=" + db + ";";
-
-
         //bloque para abrir conexion
         public MySqlConnection EstablecerConexion()
         {
@@ -35,7 +30,7 @@ namespace Grupo4_Clave4.Clases
             {
                 conex.ConnectionString = cadenaConexion;
                 conex.Open();
-
+                //MessageBox.Show("Conexion establecida ");
             }
             catch (MySqlException e)
             {
@@ -43,6 +38,6 @@ namespace Grupo4_Clave4.Clases
             }
             return conex;
         }
-
     }
+
 }

@@ -27,8 +27,8 @@ namespace Grupo4_Clave4
         private void btnConsultarPedidos_Click(object sender, EventArgs e)
         {
             // Abrir el formulario para consultar pedidos
-            FormularioConsultarPedidos formularioConsultarPedidos = new FormularioConsultarPedidos();
-            formularioConsultarPedidos.ShowDialog();
+            //FormularioConsultarPedidos formularioConsultarPedidos = new FormularioConsultarPedidos();
+            //formularioConsultarPedidos.ShowDialog();
         }
 
         private void btnCerrarSesion_Click(object sender, EventArgs e)

@@ -13,54 +13,75 @@ namespace Grupo4_Clave4
 {
     public partial class FormularioInicioSesion : Form
     {
-        private string connectionString = "Server=localhost;Database=clave4_grupo4db;Uid=root;Pwd=root;";
+
         public FormularioInicioSesion()
         {
             InitializeComponent();
         }
         private void AbrirMenuPorRol(string tipoUsuario)
         {
+            FormularioEstudiante formularioEstudiante = new FormularioEstudiante();
             if (tipoUsuario == "Estudiante")
             {
-                FormularioEstudiante menuEstudiante = new FormularioEstudiante();
-                menuEstudiante.Show();
+                formularioEstudiante.btnHacerPedido.Visible = true;
+                formularioEstudiante.btnConsultarPedidos.Visible = true;
+                formularioEstudiante.btnCerrarSesion.Visible = true;
+                formularioEstudiante.btnAdministrarUsuarios.Visible = false;
             }
             else if (tipoUsuario == "Docente")
             {
-                FormularioDocente menuDocente = new FormularioDocente();
-                menuDocente.Show();
+                formularioEstudiante.btnHacerPedido.Visible = true;
+                formularioEstudiante.btnConsultarPedidos.Visible = true;
+                formularioEstudiante.btnCerrarSesion.Visible = true;
+                formularioEstudiante.btnAdministrarUsuarios.Visible = false;
+
             }
             else if (tipoUsuario == "Administrativo")
             {
-                FormularioAdministrativo menuAdministrativo = new FormularioAdministrativo();
-                menuAdministrativo.Show();
+                formularioEstudiante.btnHacerPedido.Visible = true;
+                formularioEstudiante.btnConsultarPedidos.Visible = true;
+                formularioEstudiante.btnCerrarSesion.Visible = true;
+                formularioEstudiante.btnAdministrarUsuarios.Visible = true;
+
             }
+            formularioEstudiante.Show();
             this.Hide();
         }
 
-        private void btnInicioSesion_Click(object sender, EventArgs e)
+
+        private void btnInicioSesion_Click_1(object sender, EventArgs e)
         {
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            Clases.CConexion objetoConexion = new Clases.CConexion();
+            MySqlConnection connection = objetoConexion.EstablecerConexion();
+            if (connection != null && connection.State == System.Data.ConnectionState.Open)
             {
-                connection.Open();
-                string query = "SELECT Tipo_Usuario FROM usuarios WHERE Nombre_Usuario = @nombre AND Contraseña_Usuario = @contraseña";
-                MySqlCommand command = new MySqlCommand(query, connection);
-                command.Parameters.AddWithValue("@nombre", txtUsuario.Text);
-                command.Parameters.AddWithValue("@contraseña", txtContraseña.Text);
-
-                object result = command.ExecuteScalar();
-
-                if (result != null)
+                using (connection)
                 {
-                    string tipoUsuario = result.ToString();
-                    AbrirMenuPorRol(tipoUsuario);
-                }
-                else
-                {
-                    MessageBox.Show("Usuario o contraseña incorrectos.");
+                    string query = "SELECT Tipo_Usuario FROM usuarios WHERE Nombre_Usuario = @nombre AND Contraseña_Usuario = @contraseña";
+                    MySqlCommand command = new MySqlCommand(query, connection);
+                    command.Parameters.AddWithValue("@nombre", txtUsuario.Text);
+                    command.Parameters.AddWithValue("@contraseña", txtContraseña.Text);
+
+                    object result = command.ExecuteScalar();
+
+                    if (result != null)
+                    {
+                        string tipoUsuario = result.ToString();
+                        AbrirMenuPorRol(tipoUsuario);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Usuario o contraseña incorrectos.");
+                    }
                 }
             }
+            else
+            {
+                MessageBox.Show("No se pudo establecer la conexión con la base de datos.");
+            }
         }
-
     }
 }
+
+       
+

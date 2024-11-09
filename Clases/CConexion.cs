@@ -35,7 +35,6 @@ namespace Grupo4_Clave4.Clases
             {
                 conex.ConnectionString = cadenaConexion;
                 conex.Open();
-                MessageBox.Show("Conexion establecida ");
 
             }
             catch (MySqlException e)

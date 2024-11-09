@@ -8,28 +8,15 @@ namespace Grupo4_Clave4.Clases
 {
     public class Usuario
     {
+        int UsuarioID;
+        string NombreUsuario, ContraseñaUsuario, TipoUsuario, EmailUsuario, TelefonoUsuario;
 
-       
-            public int UsuarioID { get; set; }
-            public string NombreUsuario { get; set; }
-            public string TipoUsuario { get; set; }
-            public string EmailUsuario { get; set; }
-            public string ContraseñaUsuario { get; set; }
-            public string TelefonoUsuario { get; set; }
-
-            public Usuario() { }
-
-            public Usuario(int usuarioID, string nombreUsuario, string tipoUsuario, 
-                string emailUsuario, string contraseñaUsuario, string telefonoUsuario)
-            {
-                UsuarioID = usuarioID;
-                NombreUsuario = nombreUsuario;
-                TipoUsuario = tipoUsuario;
-                EmailUsuario = emailUsuario;
-                ContraseñaUsuario = contraseñaUsuario;
-                TelefonoUsuario = telefonoUsuario;
-            }
-        }
-
+        public string NombreUsuario1 { get => NombreUsuario; set => NombreUsuario = value; }
+        public string ContraseñaUsuario1 { get => ContraseñaUsuario; set => ContraseñaUsuario = value; }
+        public string TipoUsuario1 { get => TipoUsuario; set => TipoUsuario = value; }
+        public string EmailUsuario1 { get => EmailUsuario; set => EmailUsuario = value; }
+        public string TelefonoUsuario1 { get => TelefonoUsuario; set => TelefonoUsuario = value; }
+        public int UsuarioID1 { get => UsuarioID; set => UsuarioID = value; }
+    }
  }
 

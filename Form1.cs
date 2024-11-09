@@ -51,33 +51,27 @@ namespace Grupo4_Clave4
 
         private void btnInicioSesion_Click_1(object sender, EventArgs e)
         {
-            Clases.CConexion objetoConexion = new Clases.CConexion();
-            MySqlConnection connection = objetoConexion.EstablecerConexion();
-            if (connection != null && connection.State == System.Data.ConnectionState.Open)
+            string usuario = txtUsuario.Text;
+            string contraseña = txtContraseña.Text;
+
+            try
             {
-                using (connection)
+                Clases.Control ctrl = new Clases.Control();
+                string respuesta = ctrl.ctrlLogin(usuario, contraseña);
+                if(respuesta.Length > 0)
                 {
-                    string query = "SELECT Tipo_Usuario FROM usuarios WHERE Nombre_Usuario = @nombre AND Contraseña_Usuario = @contraseña";
-                    MySqlCommand command = new MySqlCommand(query, connection);
-                    command.Parameters.AddWithValue("@nombre", txtUsuario.Text);
-                    command.Parameters.AddWithValue("@contraseña", txtContraseña.Text);
-
-                    object result = command.ExecuteScalar();
-
-                    if (result != null)
-                    {
-                        string tipoUsuario = result.ToString();
-                        AbrirMenuPorRol(tipoUsuario);
-                    }
-                    else
-                    {
-                        MessageBox.Show("Usuario o contraseña incorrectos.");
-                    }
+                    MessageBox.Show(respuesta);
+                }
+                else
+                {
+                    Clases.Crud crud = new Clases.Crud();
+                    Clases.Usuario datosUsuarios = crud.PorUsuario(usuario);
+                    AbrirMenuPorRol(datosUsuarios.TipoUsuario1);
                 }
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show("No se pudo establecer la conexión con la base de datos.");
+                MessageBox.Show(ex.Message);
             }
         }
     }

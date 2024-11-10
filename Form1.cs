@@ -74,6 +74,13 @@ namespace Grupo4_Clave4
                 MessageBox.Show(ex.Message);
             }
         }
+
+        private void label4_Click(object sender, EventArgs e)
+        {
+            FrmRegistroUsuarios frmRegistrar = new FrmRegistroUsuarios();
+            frmRegistrar.Visible = true;
+            this.Visible = false;
+        }
     }
 }
 

@@ -34,6 +34,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.txtContraseña = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // txtUsuario
@@ -62,7 +63,7 @@
             this.btnInicioSesion.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.btnInicioSesion.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnInicioSesion.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.btnInicioSesion.Location = new System.Drawing.Point(106, 342);
+            this.btnInicioSesion.Location = new System.Drawing.Point(106, 294);
             this.btnInicioSesion.Name = "btnInicioSesion";
             this.btnInicioSesion.Size = new System.Drawing.Size(192, 38);
             this.btnInicioSesion.TabIndex = 2;
@@ -101,12 +102,25 @@
             this.txtContraseña.Size = new System.Drawing.Size(192, 20);
             this.txtContraseña.TabIndex = 5;
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.label4.Location = new System.Drawing.Point(224, 352);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(74, 16);
+            this.label4.TabIndex = 6;
+            this.label4.Text = "Registrarse";
+            this.label4.Click += new System.EventHandler(this.label4_Click);
+            // 
             // FormularioInicioSesion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Navy;
             this.ClientSize = new System.Drawing.Size(394, 417);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.txtContraseña);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
@@ -128,6 +142,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox txtContraseña;
+        private System.Windows.Forms.Label label4;
     }
 }
 

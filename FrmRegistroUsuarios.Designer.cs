@@ -39,20 +39,20 @@ namespace Grupo4_Clave4
             this.label3 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
+            this.Registrar = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // txtNombreUsuario
             // 
-            this.txtNombreUsuario.Location = new System.Drawing.Point(166, 82);
+            this.txtNombreUsuario.Location = new System.Drawing.Point(182, 83);
             this.txtNombreUsuario.Name = "txtNombreUsuario";
             this.txtNombreUsuario.Size = new System.Drawing.Size(162, 20);
             this.txtNombreUsuario.TabIndex = 0;
             // 
             // txtCorreoUsuario
             // 
-            this.txtCorreoUsuario.Location = new System.Drawing.Point(166, 131);
+            this.txtCorreoUsuario.Location = new System.Drawing.Point(182, 132);
             this.txtCorreoUsuario.Name = "txtCorreoUsuario";
             this.txtCorreoUsuario.Size = new System.Drawing.Size(162, 20);
             this.txtCorreoUsuario.TabIndex = 1;
@@ -63,21 +63,21 @@ namespace Grupo4_Clave4
             this.cmbTipoUsuario.Items.AddRange(new object[] {
             "Docente",
             "Estudiante"});
-            this.cmbTipoUsuario.Location = new System.Drawing.Point(166, 227);
+            this.cmbTipoUsuario.Location = new System.Drawing.Point(182, 228);
             this.cmbTipoUsuario.Name = "cmbTipoUsuario";
             this.cmbTipoUsuario.Size = new System.Drawing.Size(162, 21);
             this.cmbTipoUsuario.TabIndex = 2;
             // 
             // txtNumTelefonoUsuario
             // 
-            this.txtNumTelefonoUsuario.Location = new System.Drawing.Point(166, 179);
+            this.txtNumTelefonoUsuario.Location = new System.Drawing.Point(182, 180);
             this.txtNumTelefonoUsuario.Name = "txtNumTelefonoUsuario";
             this.txtNumTelefonoUsuario.Size = new System.Drawing.Size(162, 20);
             this.txtNumTelefonoUsuario.TabIndex = 3;
             // 
             // txtContraseñaUsuario
             // 
-            this.txtContraseñaUsuario.Location = new System.Drawing.Point(166, 281);
+            this.txtContraseñaUsuario.Location = new System.Drawing.Point(182, 282);
             this.txtContraseñaUsuario.Name = "txtContraseñaUsuario";
             this.txtContraseñaUsuario.Size = new System.Drawing.Size(162, 20);
             this.txtContraseñaUsuario.TabIndex = 5;
@@ -132,15 +132,6 @@ namespace Grupo4_Clave4
             this.label6.TabIndex = 11;
             this.label6.Text = "Contraseña";
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(166, 338);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(162, 32);
-            this.button1.TabIndex = 12;
-            this.button1.Text = "Registrar";
-            this.button1.UseVisualStyleBackColor = true;
-            // 
             // label4
             // 
             this.label4.AutoSize = true;
@@ -151,13 +142,23 @@ namespace Grupo4_Clave4
             this.label4.TabIndex = 13;
             this.label4.Text = "Crear Nueva Cuenta";
             // 
+            // Registrar
+            // 
+            this.Registrar.Location = new System.Drawing.Point(163, 390);
+            this.Registrar.Name = "Registrar";
+            this.Registrar.Size = new System.Drawing.Size(75, 23);
+            this.Registrar.TabIndex = 14;
+            this.Registrar.Text = "Registrar";
+            this.Registrar.UseVisualStyleBackColor = true;
+            this.Registrar.Click += new System.EventHandler(this.Registrar_Click);
+            // 
             // FrmRegistroUsuarios
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(451, 420);
+            this.ClientSize = new System.Drawing.Size(451, 508);
+            this.Controls.Add(this.Registrar);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.button1);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label3);
@@ -187,7 +188,8 @@ namespace Grupo4_Clave4
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnRegistrar;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Button Registrar;
     }
 }

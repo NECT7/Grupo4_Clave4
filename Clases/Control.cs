@@ -8,7 +8,37 @@ namespace Grupo4_Clave4.Clases
 {
     class Control
     {
-        public string ctrlLogin(string usuario, string Contraseña)
+
+        public string crtRegistro(Usuario usuarios)
+        {
+            Crud crud = new Crud(); 
+            string respuesta = "";
+
+            if (string.IsNullOrEmpty(usuarios.NombreUsuario1) ||
+                string.IsNullOrEmpty(usuarios.EmailUsuario1) ||
+                string.IsNullOrEmpty(usuarios.TelefonoUsuario1) ||
+                string.IsNullOrEmpty(usuarios.TipoUsuario1) ||
+                string.IsNullOrEmpty(usuarios.ContraseñaUsuario1))
+            {
+                respuesta = "Rellene todos los campos";
+
+            }
+            else
+            {
+                //if (crud.existeUsuario(usuarios.NombreUsuario1))
+                //{
+                //    respuesta = "El nombre de usuario ya existe";
+                //}
+                //else
+                
+                    crud.registro(usuarios);
+                
+            }
+
+            return respuesta;
+        }
+
+                public string ctrlLogin(string usuario, string Contraseña)
         {
             Crud crud = new Crud();
             string respuesta = "";

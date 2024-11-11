@@ -3,11 +3,53 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using MySql.Data.MySqlClient;
 namespace Grupo4_Clave4.Clases
 {
     class Crud
     {
+        public int registro(Usuario usuarios)
+        {
+            MySqlConnection conexion = Clases.CConexion.EstablecerConexion();
+            conexion.Open();
+
+            string sql = "INSERT INTO usuarios (Nombre_Usuario, Tipo_Usuario, Email_Usuario, Contraseña_Usuario, Telefono_Usuario) " +
+                "VALUES (@usuario, @tipoUsuario, @emailUsuario, @Contraseña, @telefono)";
+            MySqlCommand comando = new MySqlCommand(sql, conexion);
+            comando.Parameters.AddWithValue("@usuario", usuarios.NombreUsuario1);
+            comando.Parameters.AddWithValue("@tipoUsuario", usuarios.TipoUsuario1);
+            comando.Parameters.AddWithValue("@emailUsuario", usuarios.EmailUsuario1);
+            comando.Parameters.AddWithValue("@Contraseña", usuarios.ContraseñaUsuario1);
+            comando.Parameters.AddWithValue("@telefono", usuarios.TelefonoUsuario1);
+            
+                int resultado = comando.ExecuteNonQuery();
+
+            return resultado;
+        }
+      
+        //NO FUNCIONA POR EL MOMENTO xd
+        //public bool existeUsuario(string usuario)
+        //{
+        //    MySqlDataReader reader;
+        //    MySqlConnection conexion = Clases.CConexion.EstablecerConexion();
+        //    conexion.Open();
+
+        //    string sql = "SELECT Usuario_ID FROM usuarios WHERE Nombre_Usuario LIKE @usuarios";
+        //    MySqlCommand comando = new MySqlCommand(sql, conexion);
+        //    comando.Parameters.AddWithValue("@usuario", usuario);
+
+        //    reader = comando.ExecuteReader();
+        //    if (reader.HasRows)
+        //    {
+        //        return true;
+        //    }
+        //    else
+        //    {
+        //        return false;
+        //    }
+
+        //}
         public Usuario PorUsuario(string usuario)
         {
             MySqlDataReader reader;

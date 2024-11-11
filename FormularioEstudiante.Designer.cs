@@ -35,23 +35,11 @@ namespace Grupo4_Clave4
         /// </summary>
         private void InitializeComponent()
         {
-            this.label2 = new System.Windows.Forms.Label();
             this.btnHacerPedido = new System.Windows.Forms.Button();
             this.btnConsultarPedidos = new System.Windows.Forms.Button();
             this.btnCerrarSesion = new System.Windows.Forms.Button();
             this.btnAdministrarUsuarios = new System.Windows.Forms.Button();
             this.SuspendLayout();
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Corbel", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label2.Location = new System.Drawing.Point(132, 9);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(94, 39);
-            this.label2.TabIndex = 2;
-            this.label2.Text = "Menú";
             // 
             // btnHacerPedido
             // 

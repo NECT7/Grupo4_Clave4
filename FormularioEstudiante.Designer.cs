@@ -1,7 +1,14 @@
-﻿namespace Grupo4_Clave4
+﻿using System.Windows.Forms;
+
+namespace Grupo4_Clave4
 {
-    partial class FormularioEstudiante
+    public partial class FormularioEstudiante : Form
     {
+        /// <summary>
+        /// Propiedad para almacenar el rol del usuario
+        /// </summary>
+        public string rolUsuario { get; set; }
+
         /// <summary>
         /// Required designer variable.
         /// </summary>
@@ -49,7 +56,7 @@
             // btnHacerPedido
             // 
             this.btnHacerPedido.Location = new System.Drawing.Point(123, 88);
-            this.btnHacerPedido.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnHacerPedido.Margin = new System.Windows.Forms.Padding(2);
             this.btnHacerPedido.Name = "btnHacerPedido";
             this.btnHacerPedido.Size = new System.Drawing.Size(114, 40);
             this.btnHacerPedido.TabIndex = 3;
@@ -60,7 +67,7 @@
             // btnConsultarPedidos
             // 
             this.btnConsultarPedidos.Location = new System.Drawing.Point(123, 145);
-            this.btnConsultarPedidos.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnConsultarPedidos.Margin = new System.Windows.Forms.Padding(2);
             this.btnConsultarPedidos.Name = "btnConsultarPedidos";
             this.btnConsultarPedidos.Size = new System.Drawing.Size(114, 40);
             this.btnConsultarPedidos.TabIndex = 4;
@@ -70,7 +77,7 @@
             // btnCerrarSesion
             // 
             this.btnCerrarSesion.Location = new System.Drawing.Point(123, 201);
-            this.btnCerrarSesion.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnCerrarSesion.Margin = new System.Windows.Forms.Padding(2);
             this.btnCerrarSesion.Name = "btnCerrarSesion";
             this.btnCerrarSesion.Size = new System.Drawing.Size(114, 40);
             this.btnCerrarSesion.TabIndex = 5;
@@ -96,12 +103,11 @@
             this.Controls.Add(this.btnConsultarPedidos);
             this.Controls.Add(this.btnHacerPedido);
             this.Controls.Add(this.label2);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "FormularioEstudiante";
             this.Text = "Menú de Estudiantes";
             this.ResumeLayout(false);
             this.PerformLayout();
-
         }
 
         #endregion
@@ -112,4 +118,5 @@
         public System.Windows.Forms.Button btnCerrarSesion;
         public System.Windows.Forms.Button btnAdministrarUsuarios;
     }
+
 }

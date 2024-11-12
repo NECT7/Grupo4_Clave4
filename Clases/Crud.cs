@@ -27,7 +27,26 @@ namespace Grupo4_Clave4.Clases
 
             return resultado;
         }
-      
+        public int registroProducto(Productos producto)
+        {
+            MySqlConnection conexion = Clases.CConexion.EstablecerConexion();
+            conexion.Open();
+            
+            string sql = "INSERT INTO productos (Nombre_Producto, Cantidad_producto, PrecioUnitario, Tipo_Producto, Horario_Disponible) " +
+                "VALUES (@nombre, @cantidad, @precio, @tipo, @horario)";
+            MySqlCommand comando = new MySqlCommand(sql, conexion);
+            comando.Parameters.AddWithValue("@nombre", producto.NombreProducto1);
+            comando.Parameters.AddWithValue("@cantidad", producto.CantidadProducto1);
+            comando.Parameters.AddWithValue("@precio", producto.PrecioUnitarioProducto1);
+            comando.Parameters.AddWithValue("@tipo", producto.TipoProduto1);
+            comando.Parameters.AddWithValue("@horario", producto.HorarioDisponible1);
+
+            int resultado = comando.ExecuteNonQuery();
+
+            return resultado;
+        }
+
+
         //NO FUNCIONA POR EL MOMENTO xd
         //public bool existeUsuario(string usuario)
         //{

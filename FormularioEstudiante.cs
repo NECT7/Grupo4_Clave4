@@ -38,5 +38,12 @@ namespace Grupo4_Clave4
             FormularioInicioSesion formularioInicioSesion = new FormularioInicioSesion();
             formularioInicioSesion.Show();
         }
+
+        private void btnAdministrarUsuarios_Click(object sender, EventArgs e)
+        {
+            FrmAgregarProducto frmProductos = new FrmAgregarProducto();
+            frmProductos.Visible = true;
+            this.Visible = false;
+        }
     }
 }

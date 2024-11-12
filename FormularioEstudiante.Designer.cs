@@ -80,6 +80,7 @@ namespace Grupo4_Clave4
             this.btnAdministrarUsuarios.TabIndex = 6;
             this.btnAdministrarUsuarios.Text = "Administrar usuarios";
             this.btnAdministrarUsuarios.UseVisualStyleBackColor = true;
+            this.btnAdministrarUsuarios.Click += new System.EventHandler(this.btnAdministrarUsuarios_Click);
             // 
             // FormularioEstudiante
             // 
@@ -90,12 +91,11 @@ namespace Grupo4_Clave4
             this.Controls.Add(this.btnCerrarSesion);
             this.Controls.Add(this.btnConsultarPedidos);
             this.Controls.Add(this.btnHacerPedido);
-            
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "FormularioEstudiante";
             this.Text = "Menú de Estudiantes";
             this.ResumeLayout(false);
-            this.PerformLayout();
+
         }
 
         #endregion

@@ -37,6 +37,27 @@ namespace Grupo4_Clave4.Clases
 
             return respuesta;
         }
+        public string ctrRegistroProducto(Productos productos)
+        {
+            Crud crud = new Crud();
+            string respuesta = "";
+
+            if (string.IsNullOrEmpty(productos.NombreProducto1) ||
+                productos.PrecioUnitarioProducto1 <= 0.0 ||
+                productos.CantidadProducto1 <= 0 ||
+                string.IsNullOrEmpty(productos.TipoProduto1)
+                )
+            {
+                respuesta = "Rellene todos los campos";
+
+            }
+            else
+            {
+                crud.registroProducto(productos);
+            
+            }
+            return respuesta;
+        }
 
                 public string ctrlLogin(string usuario, string Contraseña)
         {

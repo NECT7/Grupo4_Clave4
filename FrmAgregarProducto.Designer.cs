@@ -40,6 +40,8 @@ namespace Grupo4_Clave4
             this.cmbTipoProducto = new System.Windows.Forms.ComboBox();
             this.dtDisponibleProdcuto = new System.Windows.Forms.DateTimePicker();
             this.btnAgregar = new System.Windows.Forms.Button();
+            this.dtgProductos = new System.Windows.Forms.DataGridView();
+            ((System.ComponentModel.ISupportInitialize)(this.dtgProductos)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -137,11 +139,20 @@ namespace Grupo4_Clave4
             this.btnAgregar.UseVisualStyleBackColor = true;
             this.btnAgregar.Click += new System.EventHandler(this.btnAgregar_Click);
             // 
+            // dtgProductos
+            // 
+            this.dtgProductos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dtgProductos.Location = new System.Drawing.Point(365, 38);
+            this.dtgProductos.Name = "dtgProductos";
+            this.dtgProductos.Size = new System.Drawing.Size(408, 227);
+            this.dtgProductos.TabIndex = 11;
+            // 
             // FrmAgregarProducto
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(705, 464);
+            this.ClientSize = new System.Drawing.Size(785, 404);
+            this.Controls.Add(this.dtgProductos);
             this.Controls.Add(this.btnAgregar);
             this.Controls.Add(this.dtDisponibleProdcuto);
             this.Controls.Add(this.cmbTipoProducto);
@@ -155,6 +166,7 @@ namespace Grupo4_Clave4
             this.Controls.Add(this.label1);
             this.Name = "FrmAgregarProducto";
             this.Text = "FrmAgregarProducto";
+            ((System.ComponentModel.ISupportInitialize)(this.dtgProductos)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -173,5 +185,6 @@ namespace Grupo4_Clave4
         private System.Windows.Forms.ComboBox cmbTipoProducto;
         private System.Windows.Forms.DateTimePicker dtDisponibleProdcuto;
         private System.Windows.Forms.Button btnAgregar;
+        private System.Windows.Forms.DataGridView dtgProductos;
     }
 }

@@ -15,6 +15,13 @@ namespace Grupo4_Clave4
         public FormularioHacerPedido()
         {
             InitializeComponent();
+            CargarDatos();
+        }
+        private void CargarDatos()
+        {
+            Clases.Crud crud = new Clases.Crud();
+            DataTable dt = crud.ObtenerProductosDisponibles();
+            dgvProductosDisponibles.DataSource = dt;
         }
     }
 }

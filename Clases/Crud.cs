@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,7 +9,42 @@ using MySql.Data.MySqlClient;
 namespace Grupo4_Clave4.Clases
 {
     class Crud
-    {
+    {//Obtener los datos de la tabla prouctos
+
+        public DataTable ObtenerProductos()
+        {
+            DataTable dt = new DataTable();
+            using (MySqlConnection conexion = Clases.CConexion.EstablecerConexion())
+            {
+                string query = "SELECT * FROM Productos";
+                using (MySqlCommand comando = new MySqlCommand(query, conexion))
+                {
+                    conexion.Open();
+                    using (MySqlDataAdapter adapter = new MySqlDataAdapter(comando))
+                    {
+                        adapter.Fill(dt);
+                    }
+                }
+            }
+            return dt;
+        }
+        public DataTable ObtenerProductosDisponibles()
+        {
+            DataTable dt = new DataTable();
+            using (MySqlConnection conexion = Clases.CConexion.EstablecerConexion())
+            {
+                string query = "SELECT Nombre_Producto, Cantidad_Producto, PrecioUnitario, Tipo_Producto, Horario_Disponible FROM Productos WHERE Cantidad_producto > 0";
+                using (MySqlCommand comando = new MySqlCommand(query, conexion))
+                {
+                    conexion.Open();
+                    using (MySqlDataAdapter adapter = new MySqlDataAdapter(comando))
+                    {
+                        adapter.Fill(dt);
+                    }
+                }
+            }
+            return dt;
+        }
         public int registro(Usuario usuarios)
         {
             MySqlConnection conexion = Clases.CConexion.EstablecerConexion();
@@ -94,4 +130,6 @@ namespace Grupo4_Clave4.Clases
             return usr;
         }
     }
+
+    
 }

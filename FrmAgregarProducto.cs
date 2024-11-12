@@ -15,6 +15,13 @@ namespace Grupo4_Clave4
         public FrmAgregarProducto()
         {
             InitializeComponent();
+            CargarDatos();
+        }
+        private void CargarDatos()
+        {
+            Clases.Crud crud = new Clases.Crud();
+            DataTable dt = crud.ObtenerProductos();
+            dtgProductos.DataSource = dt;
         }
 
         private void btnAgregar_Click(object sender, EventArgs e)
@@ -37,6 +44,7 @@ namespace Grupo4_Clave4
                 else
                 {
                     MessageBox.Show("Producto registrado", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    CargarDatos();
                 }   
             }
             catch (Exception ex)
@@ -44,5 +52,7 @@ namespace Grupo4_Clave4
                 MessageBox.Show(ex.Message);
             }
         }
+
+        
     }
 }

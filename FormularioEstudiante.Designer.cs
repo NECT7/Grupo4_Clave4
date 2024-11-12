@@ -43,7 +43,8 @@ namespace Grupo4_Clave4
             // 
             // btnHacerPedido
             // 
-            this.btnHacerPedido.Location = new System.Drawing.Point(123, 88);
+            this.btnHacerPedido.Font = new System.Drawing.Font("Microsoft YaHei", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnHacerPedido.Location = new System.Drawing.Point(140, 51);
             this.btnHacerPedido.Margin = new System.Windows.Forms.Padding(2);
             this.btnHacerPedido.Name = "btnHacerPedido";
             this.btnHacerPedido.Size = new System.Drawing.Size(114, 40);
@@ -54,17 +55,19 @@ namespace Grupo4_Clave4
             // 
             // btnConsultarPedidos
             // 
-            this.btnConsultarPedidos.Location = new System.Drawing.Point(123, 145);
+            this.btnConsultarPedidos.Font = new System.Drawing.Font("Microsoft YaHei", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnConsultarPedidos.Location = new System.Drawing.Point(140, 123);
             this.btnConsultarPedidos.Margin = new System.Windows.Forms.Padding(2);
             this.btnConsultarPedidos.Name = "btnConsultarPedidos";
-            this.btnConsultarPedidos.Size = new System.Drawing.Size(114, 40);
+            this.btnConsultarPedidos.Size = new System.Drawing.Size(114, 49);
             this.btnConsultarPedidos.TabIndex = 4;
             this.btnConsultarPedidos.Text = "Consultar Pedidos";
             this.btnConsultarPedidos.UseVisualStyleBackColor = true;
             // 
             // btnCerrarSesion
             // 
-            this.btnCerrarSesion.Location = new System.Drawing.Point(123, 201);
+            this.btnCerrarSesion.Font = new System.Drawing.Font("Microsoft YaHei", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCerrarSesion.Location = new System.Drawing.Point(140, 206);
             this.btnCerrarSesion.Margin = new System.Windows.Forms.Padding(2);
             this.btnCerrarSesion.Name = "btnCerrarSesion";
             this.btnCerrarSesion.Size = new System.Drawing.Size(114, 40);
@@ -74,7 +77,8 @@ namespace Grupo4_Clave4
             // 
             // btnAdministrarUsuarios
             // 
-            this.btnAdministrarUsuarios.Location = new System.Drawing.Point(123, 263);
+            this.btnAdministrarUsuarios.Font = new System.Drawing.Font("Microsoft YaHei", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAdministrarUsuarios.Location = new System.Drawing.Point(140, 284);
             this.btnAdministrarUsuarios.Name = "btnAdministrarUsuarios";
             this.btnAdministrarUsuarios.Size = new System.Drawing.Size(114, 47);
             this.btnAdministrarUsuarios.TabIndex = 6;
@@ -85,17 +89,17 @@ namespace Grupo4_Clave4
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.ClientSize = new System.Drawing.Size(388, 392);
             this.Controls.Add(this.btnAdministrarUsuarios);
             this.Controls.Add(this.btnCerrarSesion);
             this.Controls.Add(this.btnConsultarPedidos);
             this.Controls.Add(this.btnHacerPedido);
-            this.Controls.Add(this.label2);
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "FormularioEstudiante";
             this.Text = "Menú de Estudiantes";
             this.ResumeLayout(false);
-            this.PerformLayout();
+
         }
 
         #endregion

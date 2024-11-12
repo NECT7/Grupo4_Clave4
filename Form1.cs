@@ -41,6 +41,19 @@ namespace Grupo4_Clave4
         // Evento para iniciar sesión y abrir el menú adecuado
         private void btnInicioSesion_Click(object sender, EventArgs e)
         {
+            
+        }
+
+        // Evento para abrir el formulario de registro de usuarios
+        private void label4_Click(object sender, EventArgs e)
+        {
+            FrmRegistroUsuarios frmRegistrar = new FrmRegistroUsuarios();
+            frmRegistrar.Visible = true;
+            this.Visible = false;
+        }
+
+        private void btnInicioSesion_Click_1(object sender, EventArgs e)
+        {
             string usuario = txtUsuario.Text;
             string contraseña = txtContraseña.Text;
 
@@ -66,14 +79,6 @@ namespace Grupo4_Clave4
             {
                 MessageBox.Show(ex.Message);
             }
-        }
-
-        // Evento para abrir el formulario de registro de usuarios
-        private void label4_Click(object sender, EventArgs e)
-        {
-            FrmRegistroUsuarios frmRegistrar = new FrmRegistroUsuarios();
-            frmRegistrar.Visible = true;
-            this.Visible = false;
         }
     }
 }

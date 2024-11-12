@@ -90,7 +90,7 @@ namespace Grupo4_Clave4
             this.Controls.Add(this.btnCerrarSesion);
             this.Controls.Add(this.btnConsultarPedidos);
             this.Controls.Add(this.btnHacerPedido);
-            this.Controls.Add(this.label2);
+            
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "FormularioEstudiante";
             this.Text = "Menú de Estudiantes";

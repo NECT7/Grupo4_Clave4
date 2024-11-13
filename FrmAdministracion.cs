@@ -23,5 +23,12 @@ namespace Grupo4_Clave4
             locales.Visible = true;
             this.Visible = false;
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            FrmAgregarProducto productos = new FrmAgregarProducto();
+            productos.Visible = true;
+             this.Visible = false;
+        }
     }
 }

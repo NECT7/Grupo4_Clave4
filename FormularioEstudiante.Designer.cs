@@ -82,7 +82,7 @@ namespace Grupo4_Clave4
             this.btnAdministrarUsuarios.Name = "btnAdministrarUsuarios";
             this.btnAdministrarUsuarios.Size = new System.Drawing.Size(114, 47);
             this.btnAdministrarUsuarios.TabIndex = 6;
-            this.btnAdministrarUsuarios.Text = "Administrar usuarios";
+            this.btnAdministrarUsuarios.Text = "Administracion";
             this.btnAdministrarUsuarios.UseVisualStyleBackColor = true;
             this.btnAdministrarUsuarios.Click += new System.EventHandler(this.btnAdministrarUsuarios_Click);
             // 

@@ -10,19 +10,18 @@ namespace Grupo4_Clave4
     internal class Validaciones
     {
         // Validación de campo vacío
-        public static bool EstaVacio(string input)
+        public static bool EstaVacio(string texto)
         {
-            return string.IsNullOrWhiteSpace(input);
+            return string.IsNullOrWhiteSpace(texto);
         }
-
         // Validación de solo letras
-        public static bool EsSoloLetras(string input)
+        public static bool SoloLetras(string input)
         {
             return Regex.IsMatch(input, @"^[a-zA-Z\s]+$");
         }
 
         // Validación de solo números
-        public static bool EsSoloNumeros(string input)
+        public static bool SoloNumeros(string input)
         {
             return Regex.IsMatch(input, @"^\d+$");
         }

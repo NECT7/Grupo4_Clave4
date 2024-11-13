@@ -12,73 +12,36 @@ namespace Grupo4_Clave4
 {
     public partial class FrmAgregarProducto : Form
     {
-        private int? eventoID;
-
-        public FormularioHacerPedido(int eventoID)
+        public FrmAgregarProducto()
         {
             InitializeComponent();
-            this.eventoID = eventoID;
-            CargarDatos();
         }
 
-        public FormularioHacerPedido()
+        private void btnAgregar_Click(object sender, EventArgs e)
         {
-            InitializeComponent();
-            CargarDatos();
-        }
-
-        private void CargarDatos()
-        {
-            Clases.Crud crud = new Clases.Crud();
-            DataTable dt = crud.ObtenerProductosDisponibles();
-            dgvProductosDisponibles.DataSource = dt;
-        }
-
-        private decimal CalcularTotal()
-        {
-            decimal total = 0;
-            foreach (DataGridViewRow row in dtgTuPedido.Rows)
+            Clases.Productos productos = new Clases.Productos();
+            productos.NombreProducto1 = txtNombreProducto.Text;
+            productos.CantidadProducto1 = int.Parse(txtCantidaProducto.Text);
+            productos.PrecioUnitarioProducto1 = double.Parse(txtPrecioProducto.Text);
+            productos.TipoProduto1 = cmbTipoProducto.SelectedItem?.ToString();
+            productos.HorarioDisponible1 = dtDisponibleProdcuto.Value.ToString("HH:mm:ss");
+            try
             {
-                if (row.Cells["PrecioUnitario"]?.Value != null)
+                Clases.Control ctrl = new Clases.Control();
+                string respuesta = ctrl.ctrRegistroProducto(productos);
+
+                if (!string.IsNullOrEmpty(respuesta))
                 {
-                    decimal precio = Convert.ToDecimal(row.Cells["PrecioUnitario"].Value);
-                    int cantidad = Convert.ToInt32(row.Cells["Cantidad"].Value);
-                    total += precio * cantidad;
+                    MessageBox.Show(respuesta, "Error", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show("Producto registrado", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
-            return total;
-        }
-
-        private void btnGuardarPedido_Click(object sender, EventArgs e)
-        {
-            Clases.Pedido pedido = new Clases.Pedido
+            catch (Exception ex)
             {
-                UsuarioID = Clases.Session.UserID,
-                LocalID = (int)cmbLocal.SelectedValue,
-                EventoID = cmbEvento.SelectedValue as int?,
-                FechaHoraPedido = DateTime.Now,
-                HoraReserva = dtReserva.Value.TimeOfDay,
-                EstadoPedido = "Pendiente",
-                TipoPedido = "Mesa",
-                TotalPago = CalcularTotal(),
-                TipoPago = cmbTipoPago.SelectedItem.ToString()
-            };
-
-            Clases.Crud crud = new Clases.Crud();
-            crud.GuardarPedido(pedido);
-
-            MessageBox.Show("Pedido guardado con éxito.");
-        }
-
-        private void FormularioHacerPedido_Load(object sender, EventArgs e)
-        {
-            if (eventoID.HasValue)
-            {
-                txtEventoID.Text = eventoID.Value.ToString();
-            }
-            else
-            {
-                txtEventoID.Text = "No se ha seleccionado un evento";
+                MessageBox.Show(ex.Message);
             }
         }
     }

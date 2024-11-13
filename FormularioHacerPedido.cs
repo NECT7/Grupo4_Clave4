@@ -12,6 +12,13 @@ namespace Grupo4_Clave4
 {
     public partial class FormularioHacerPedido : Form
     {
+        private int? eventoID;
+        public FormularioHacerPedido(int eventoID)
+        {
+            InitializeComponent();
+            this.eventoID = eventoID;
+            CargarDatos();
+        }
         public FormularioHacerPedido()
         {
             InitializeComponent();
@@ -27,6 +34,18 @@ namespace Grupo4_Clave4
         private void btnAgregar_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void FormularioHacerPedido_Load(object sender, EventArgs e)
+        {
+            if (eventoID.HasValue)
+            {
+                txtEventoID.Text = eventoID.Value.ToString();
+            }
+            else
+            {
+                txtEventoID.Text = "No se ha seleccionado un evento";
+            }
         }
     }
 }

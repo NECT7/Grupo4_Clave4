@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Grupo4_Clave4.Clases
 {
@@ -11,7 +12,7 @@ namespace Grupo4_Clave4.Clases
 
         public string crtRegistro(Usuario usuarios)
         {
-            Crud crud = new Crud(); 
+            Crud crud = new Crud();
             string respuesta = "";
 
             if (string.IsNullOrEmpty(usuarios.NombreUsuario1) ||
@@ -30,9 +31,9 @@ namespace Grupo4_Clave4.Clases
                 //    respuesta = "El nombre de usuario ya existe";
                 //}
                 //else
-                
-                    crud.registro(usuarios);
-                
+
+                crud.registro(usuarios);
+
             }
 
             return respuesta;
@@ -54,38 +55,39 @@ namespace Grupo4_Clave4.Clases
             else
             {
                 crud.registroProducto(productos);
-            
+
             }
             return respuesta;
         }
 
-                public string ctrlLogin(string usuario, string Contraseña)
+        public string ctrlLogin(string usuario, string Contraseña)
         {
             Crud crud = new Crud();
             string respuesta = "";
             Usuario datosUsuarios = null;
 
-            if (string.IsNullOrEmpty(usuario) || string.IsNullOrEmpty(Contraseña)){
+            if (string.IsNullOrEmpty(usuario) || string.IsNullOrEmpty(Contraseña))
+            {
 
                 respuesta = "Debe llenar todos los campos";
-            }             
+            }
             else
             {
                 datosUsuarios = crud.PorUsuario(usuario);
-                if(datosUsuarios == null)
+                if (datosUsuarios == null)
                 {
                     respuesta = "El usuario no existe";
                 }
                 else
                 {
-                    if((string.IsNullOrEmpty(datosUsuarios.ContraseñaUsuario1) || datosUsuarios.ContraseñaUsuario1.Trim() != Contraseña.Trim()))
+                    if ((string.IsNullOrEmpty(datosUsuarios.ContraseñaUsuario1) || datosUsuarios.ContraseñaUsuario1.Trim() != Contraseña.Trim()))
                     {
                         respuesta = "Contraseña Incorrecta";
                     }
                 }
             }
             return respuesta;
-           {
+            {
 
             }
         }
@@ -105,8 +107,27 @@ namespace Grupo4_Clave4.Clases
                 crud.RegistroLocales(local);
             }
             return respuesta;
-        }   
+        }
+        public int ctrlRegistroEventos(eventos evento)
+        {
+            Crud crud = new Crud();
+            int eventoID = -1;
+
+            if (string.IsNullOrEmpty(evento.EstadoEvento1) || evento.UsuarioID <= 0 ||
+                evento.MontoMaximo1 <= 0.0 || evento.MontoMinimo1 <= 0.0 || evento.Fecha1 == DateTime.MinValue)
+            {
+                MessageBox.Show("Rellene todos los campos", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            else
+            {
+                eventoID = crud.RegistoEventos(evento);
+            }
+            return eventoID;
+        }
+
+    }
     }
 
-   
-}
+
+
+

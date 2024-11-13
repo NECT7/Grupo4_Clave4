@@ -19,7 +19,7 @@ namespace Grupo4_Clave4
 
         private void btnHacerPedido_Click(object sender, EventArgs e)
         {
-            // Abrir el formulario para hacer un pedido
+            // Abrir el formulario para hacer un pedido sin un eventoID inicial
             FormularioHacerPedido formularioHacerPedido = new FormularioHacerPedido();
             formularioHacerPedido.ShowDialog();
         }
@@ -43,6 +43,13 @@ namespace Grupo4_Clave4
         {
             FrmAdministracion admin = new FrmAdministracion();
             admin.Visible = true;
+            this.Visible = false;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            FrmEventos evento = new FrmEventos();
+            evento.Visible = true;
             this.Visible = false;
         }
     }

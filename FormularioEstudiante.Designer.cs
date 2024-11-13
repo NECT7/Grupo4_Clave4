@@ -39,6 +39,7 @@ namespace Grupo4_Clave4
             this.btnConsultarPedidos = new System.Windows.Forms.Button();
             this.btnCerrarSesion = new System.Windows.Forms.Button();
             this.btnAdministrarUsuarios = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnHacerPedido
@@ -56,7 +57,7 @@ namespace Grupo4_Clave4
             // btnConsultarPedidos
             // 
             this.btnConsultarPedidos.Font = new System.Drawing.Font("Microsoft YaHei", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnConsultarPedidos.Location = new System.Drawing.Point(140, 123);
+            this.btnConsultarPedidos.Location = new System.Drawing.Point(140, 200);
             this.btnConsultarPedidos.Margin = new System.Windows.Forms.Padding(2);
             this.btnConsultarPedidos.Name = "btnConsultarPedidos";
             this.btnConsultarPedidos.Size = new System.Drawing.Size(114, 49);
@@ -67,7 +68,7 @@ namespace Grupo4_Clave4
             // btnCerrarSesion
             // 
             this.btnCerrarSesion.Font = new System.Drawing.Font("Microsoft YaHei", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCerrarSesion.Location = new System.Drawing.Point(140, 206);
+            this.btnCerrarSesion.Location = new System.Drawing.Point(140, 279);
             this.btnCerrarSesion.Margin = new System.Windows.Forms.Padding(2);
             this.btnCerrarSesion.Name = "btnCerrarSesion";
             this.btnCerrarSesion.Size = new System.Drawing.Size(114, 40);
@@ -78,7 +79,7 @@ namespace Grupo4_Clave4
             // btnAdministrarUsuarios
             // 
             this.btnAdministrarUsuarios.Font = new System.Drawing.Font("Microsoft YaHei", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAdministrarUsuarios.Location = new System.Drawing.Point(140, 284);
+            this.btnAdministrarUsuarios.Location = new System.Drawing.Point(140, 351);
             this.btnAdministrarUsuarios.Name = "btnAdministrarUsuarios";
             this.btnAdministrarUsuarios.Size = new System.Drawing.Size(114, 47);
             this.btnAdministrarUsuarios.TabIndex = 6;
@@ -86,12 +87,25 @@ namespace Grupo4_Clave4
             this.btnAdministrarUsuarios.UseVisualStyleBackColor = true;
             this.btnAdministrarUsuarios.Click += new System.EventHandler(this.btnAdministrarUsuarios_Click);
             // 
+            // button1
+            // 
+            this.button1.Font = new System.Drawing.Font("Microsoft YaHei", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button1.Location = new System.Drawing.Point(140, 125);
+            this.button1.Margin = new System.Windows.Forms.Padding(2);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(114, 40);
+            this.button1.TabIndex = 7;
+            this.button1.Text = "Eventos";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // FormularioEstudiante
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.ClientSize = new System.Drawing.Size(388, 392);
+            this.ClientSize = new System.Drawing.Size(388, 500);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.btnAdministrarUsuarios);
             this.Controls.Add(this.btnCerrarSesion);
             this.Controls.Add(this.btnConsultarPedidos);
@@ -110,6 +124,7 @@ namespace Grupo4_Clave4
         public System.Windows.Forms.Button btnConsultarPedidos;
         public System.Windows.Forms.Button btnCerrarSesion;
         public System.Windows.Forms.Button btnAdministrarUsuarios;
+        public Button button1;
     }
 
 }

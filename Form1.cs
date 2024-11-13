@@ -71,6 +71,7 @@ namespace Grupo4_Clave4
                     Clases.Crud crud = new Clases.Crud();
                     Clases.Usuario datosUsuarios = crud.PorUsuario(usuario);
 
+                    Clases.Session.UserID = datosUsuarios.UsuarioID1;
                     // Abrir el menú según el rol recuperado del usuario
                     AbrirMenuPorRol(datosUsuarios.TipoUsuario1);
                 }

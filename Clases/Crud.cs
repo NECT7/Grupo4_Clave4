@@ -108,6 +108,36 @@ namespace Grupo4_Clave4.Clases
                 conexion.Close();
             }
         }
+        public int RegistoEventos(eventos evento)
+        {
+            MySqlConnection conexion = Clases.CConexion.EstablecerConexion();
+            try
+            {
+                conexion.Open();
+                string sql = "INSERT INTO eventos (Usuario_ID, Fecha_Evento, MontoMinimo_Evento, MontoMaximo_Evento" +
+                    ", Estado_Evento ) " +
+                             "VALUES (@Usuario, @Fecha, @Maximo, @Minimo, @Estado)";
+                MySqlCommand comando = new MySqlCommand(sql, conexion);
+                comando.Parameters.AddWithValue("@Usuario", evento.UsuarioID);
+                comando.Parameters.AddWithValue("@Fecha", evento.Fecha1);
+                comando.Parameters.AddWithValue("@Maximo", evento.MontoMaximo1);
+                comando.Parameters.AddWithValue("@Minimo", evento.MontoMinimo1);
+                comando.Parameters.AddWithValue("@Estado", evento.EstadoEvento1);
+
+                int resultado = comando.ExecuteNonQuery();
+                int eventoID = (int)comando.LastInsertedId;
+                return resultado;
+            }
+            catch (MySqlException ex)
+            {
+                MessageBox.Show("Error al ejecutar la consulta: " + ex.Message);
+                return -1;
+            }
+            finally
+            {
+                conexion.Close();
+            }
+        }
         public DataTable ObtenerLocales()
         {
             DataTable dt = new DataTable();

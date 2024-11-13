@@ -23,5 +23,10 @@ namespace Grupo4_Clave4
             DataTable dt = crud.ObtenerProductosDisponibles();
             dgvProductosDisponibles.DataSource = dt;
         }
+
+        private void btnAgregar_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

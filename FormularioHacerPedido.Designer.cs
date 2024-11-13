@@ -33,6 +33,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.numCantidad = new System.Windows.Forms.NumericUpDown();
             this.dtgTuPedido = new System.Windows.Forms.DataGridView();
+            this.btnAgregar = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProductosDisponibles)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numCantidad)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtgTuPedido)).BeginInit();
@@ -106,11 +107,22 @@
             this.dtgTuPedido.Size = new System.Drawing.Size(667, 118);
             this.dtgTuPedido.TabIndex = 7;
             // 
+            // btnAgregar
+            // 
+            this.btnAgregar.Location = new System.Drawing.Point(169, 192);
+            this.btnAgregar.Name = "btnAgregar";
+            this.btnAgregar.Size = new System.Drawing.Size(75, 23);
+            this.btnAgregar.TabIndex = 8;
+            this.btnAgregar.Text = "Agregar";
+            this.btnAgregar.UseVisualStyleBackColor = true;
+            this.btnAgregar.Click += new System.EventHandler(this.btnAgregar_Click);
+            // 
             // FormularioHacerPedido
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(700, 408);
+            this.Controls.Add(this.btnAgregar);
             this.Controls.Add(this.dtgTuPedido);
             this.Controls.Add(this.numCantidad);
             this.Controls.Add(this.label1);
@@ -134,5 +146,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.NumericUpDown numCantidad;
         private System.Windows.Forms.DataGridView dtgTuPedido;
+        private System.Windows.Forms.Button btnAgregar;
     }
 }

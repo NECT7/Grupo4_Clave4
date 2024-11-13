@@ -19,12 +19,44 @@ namespace Grupo4_Clave4
 
         private void Registrar_Click(object sender, EventArgs e)
         {
-            Clases.Usuario usuario = new Clases.Usuario();
-            usuario.NombreUsuario1 = txtNombreUsuario.Text;
-            usuario.EmailUsuario1 = txtCorreoUsuario.Text;
-            usuario.TelefonoUsuario1 = txtNumTelefonoUsuario.Text;
-            usuario.TipoUsuario1 = cmbTipoUsuario.SelectedItem?.ToString();
-            usuario.ContraseñaUsuario1 = txtContraseñaUsuario.Text;
+            // Validaciones de entradas
+            if (Validaciones.EstaVacio(txtNombreUsuario.Text) ||
+                Validaciones.EstaVacio(txtCorreoUsuario.Text) ||
+                Validaciones.EstaVacio(txtNumTelefonoUsuario.Text) ||
+                Validaciones.EstaVacio(txtContraseñaUsuario.Text) ||
+                !Validaciones.EstaSeleccionado(cmbTipoUsuario))
+            {
+                MessageBox.Show("Por favor, rellena todos los campos obligatorios.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (!Validaciones.SoloLetras(txtNombreUsuario.Text))
+            {
+                MessageBox.Show("El nombre de usuario solo debe contener letras.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (!Validaciones.SoloNumeros(txtNumTelefonoUsuario.Text))
+            {
+                MessageBox.Show("El teléfono debe contener solo números.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (!Validaciones.ValidarEmail(txtCorreoUsuario.Text))
+            {
+                MessageBox.Show("Por favor, ingresa un correo electrónico válido.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // Si todas las validaciones pasan, continúa con el registro del usuario
+            Clases.Usuario usuario = new Clases.Usuario
+            {
+                NombreUsuario1 = txtNombreUsuario.Text,
+                EmailUsuario1 = txtCorreoUsuario.Text,
+                TelefonoUsuario1 = txtNumTelefonoUsuario.Text,
+                TipoUsuario1 = cmbTipoUsuario.SelectedItem?.ToString(),
+                ContraseñaUsuario1 = txtContraseñaUsuario.Text
+            };
 
             try
             {
@@ -44,9 +76,7 @@ namespace Grupo4_Clave4
             {
                 MessageBox.Show(ex.Message);
             }
-            
-
-
         }
+
     }
 }

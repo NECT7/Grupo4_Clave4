@@ -16,25 +16,48 @@ namespace Grupo4_Clave4
         {
             InitializeComponent();
         }
-
-        private void txtID_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void FrmEventos_Load(object sender, EventArgs e)
         {
             //txtID.Text = Clases.Session.UserID.ToString();
         }
-
         private void button1_Click(object sender, EventArgs e)
         {
-            eventos evento = new eventos();
-            evento.UsuarioID = Clases.Session.UserID;
-            evento.Fecha1 = dtpFechaEvento.Value;
-            evento.MontoMaximo1 = double.Parse(txtMontoMaximo.Text);
-            evento.MontoMinimo1 = double.Parse(txtMontoMinimo.Text);
-            evento.EstadoEvento1 = "Pagado";
+            // Validaciones de entradas
+            if (Validaciones.EstaVacio(txtMontoMaximo.Text) ||
+                Validaciones.EstaVacio(txtMontoMinimo.Text))
+            {
+                MessageBox.Show("Por favor, rellena todos los campos obligatorios.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (!Validaciones.SoloNumeros(txtMontoMaximo.Text) || !Validaciones.SoloNumeros(txtMontoMinimo.Text))
+            {
+                MessageBox.Show("Los campos de monto máximo y monto mínimo deben contener solo números.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (double.Parse(txtMontoMaximo.Text) <= 0 || double.Parse(txtMontoMinimo.Text) <= 0)
+            {
+                MessageBox.Show("Los montos deben ser mayores a cero.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (double.Parse(txtMontoMaximo.Text) < double.Parse(txtMontoMinimo.Text))
+            {
+                MessageBox.Show("El monto máximo no puede ser menor que el monto mínimo.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // Si todas las validaciones pasan, continúa con el registro del evento
+            eventos evento = new eventos
+            {
+                UsuarioID = Clases.Session.UserID,
+                Fecha1 = dtpFechaEvento.Value,
+                MontoMaximo1 = double.Parse(txtMontoMaximo.Text),
+                MontoMinimo1 = double.Parse(txtMontoMinimo.Text),
+                EstadoEvento1 = "Pagado"
+            };
+
             try
             {
                 Clases.Control ctrl = new Clases.Control();
@@ -59,4 +82,4 @@ namespace Grupo4_Clave4
             }
         }
     }
-    }
+}

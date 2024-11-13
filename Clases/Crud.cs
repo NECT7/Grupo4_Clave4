@@ -82,6 +82,51 @@ namespace Grupo4_Clave4.Clases
             return resultado;
         }
 
+        public int RegistroLocales(Locales local)
+        {
+            MySqlConnection conexion = Clases.CConexion.EstablecerConexion();
+            try
+            {
+                conexion.Open();
+                string sql = "INSERT INTO `clave4_grupo4db`.`locales` (`Nombre_Local`, `Ubicacion_Local`, `Horario_Local`) " +
+                             "VALUES (@Nombre, @Ubicacion, @Horario)";
+                MySqlCommand comando = new MySqlCommand(sql, conexion);
+                comando.Parameters.AddWithValue("@Nombre", local.NombreLocal1);
+                comando.Parameters.AddWithValue("@Ubicacion", local.UbicacionLocal1);
+                comando.Parameters.AddWithValue("@Horario", local.Horario1);
+
+                int resultado = comando.ExecuteNonQuery();
+                return resultado;
+            }
+            catch (MySqlException ex)
+            {
+                MessageBox.Show("Error al ejecutar la consulta: " + ex.Message);
+                return -1;
+            }
+            finally
+            {
+                conexion.Close();
+            }
+        }
+        public DataTable ObtenerLocales()
+        {
+            DataTable dt = new DataTable();
+            using (MySqlConnection conexion = Clases.CConexion.EstablecerConexion())
+            {
+                string query = "SELECT * FROM locales";
+                using (MySqlCommand comando = new MySqlCommand(query, conexion))
+                {
+                    conexion.Open();
+                    using (MySqlDataAdapter adapter = new MySqlDataAdapter(comando))
+                    {
+                        adapter.Fill(dt);
+                    }
+                }
+            }
+            return dt;
+        }
+
+
 
         //NO FUNCIONA POR EL MOMENTO xd
         //public bool existeUsuario(string usuario)

@@ -41,8 +41,8 @@ namespace Grupo4_Clave4
 
         private void btnAdministrarUsuarios_Click(object sender, EventArgs e)
         {
-            FrmAgregarProducto frmProductos = new FrmAgregarProducto();
-            frmProductos.Visible = true;
+            FrmAdministracion admin = new FrmAdministracion();
+            admin.Visible = true;
             this.Visible = false;
         }
     }

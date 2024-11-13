@@ -89,5 +89,24 @@ namespace Grupo4_Clave4.Clases
 
             }
         }
+        public string ctrlRegistroLocales(Locales local)
+        {
+            Crud crud = new Crud();
+            string respuesta = "";
+
+            if (string.IsNullOrEmpty(local.NombreLocal1) || string.IsNullOrEmpty(local.UbicacionLocal1)
+                || string.IsNullOrEmpty(local.Horario1))
+            {
+                respuesta = "rellene todos los campos";
+
+            }
+            else
+            {
+                crud.RegistroLocales(local);
+            }
+            return respuesta;
+        }   
     }
+
+   
 }

@@ -8,9 +8,6 @@ namespace Grupo4_Clave4.Clases
 {
     public class Session
     {
-        
             public static int UserID { get; set; }
-        
-
     }
 }

@@ -33,7 +33,7 @@ namespace Grupo4_Clave4.Clases
             DataTable dt = new DataTable();
             using (MySqlConnection conexion = Clases.CConexion.EstablecerConexion())
             {
-                string query = "SELECT Nombre_Producto, Cantidad_Producto, PrecioUnitario, Tipo_Producto, Horario_Disponible FROM Productos WHERE Cantidad_producto > 0";
+                string query = "SELECT Producto_ID,Nombre_Producto, Cantidad_Producto, PrecioUnitario, Tipo_Producto, Horario_Disponible FROM Productos WHERE Cantidad_producto > 0";
                 using (MySqlCommand comando = new MySqlCommand(query, conexion))
                 {
                     conexion.Open();
@@ -58,8 +58,8 @@ namespace Grupo4_Clave4.Clases
             comando.Parameters.AddWithValue("@emailUsuario", usuarios.EmailUsuario1);
             comando.Parameters.AddWithValue("@Contraseña", usuarios.ContraseñaUsuario1);
             comando.Parameters.AddWithValue("@telefono", usuarios.TelefonoUsuario1);
-            
-                int resultado = comando.ExecuteNonQuery();
+
+            int resultado = comando.ExecuteNonQuery();
 
             return resultado;
         }
@@ -67,7 +67,7 @@ namespace Grupo4_Clave4.Clases
         {
             MySqlConnection conexion = Clases.CConexion.EstablecerConexion();
             conexion.Open();
-            
+
             string sql = "INSERT INTO productos (Nombre_Producto, Cantidad_producto, PrecioUnitario, Tipo_Producto, Horario_Disponible) " +
                 "VALUES (@nombre, @cantidad, @precio, @tipo, @horario)";
             MySqlCommand comando = new MySqlCommand(sql, conexion);
@@ -81,8 +81,82 @@ namespace Grupo4_Clave4.Clases
 
             return resultado;
         }
+        public int GuardarPedido(Pedido pedido)
+        {
+            MySqlConnection conn = Clases.CConexion.EstablecerConexion();
+            try
+            {
+                conn.Open();
+                string query = "INSERT INTO pedidos (Usuario_ID, Local_ID, Evento_ID, FechaHora_Pedido, Hora_Reserva, Estado_Pedido, Tipo_Pedido, TotalPago, TipoPago) " +
+                               "VALUES (@Usuario_ID, @Local_ID, @Evento_ID, @FechaHora_Pedido, @Hora_Reserva, @Estado_Pedido, @Tipo_Pedido, @TotalPago, @TipoPago)";
 
-        public int RegistroLocales(Locales local)
+                MySqlCommand cmd = new MySqlCommand(query, conn);
+
+                cmd.Parameters.AddWithValue("@Usuario_ID", pedido.UsuarioID);
+                cmd.Parameters.AddWithValue("@Local_ID", pedido.LocalID);
+                cmd.Parameters.AddWithValue("@Evento_ID", pedido.EventoID ?? (object)DBNull.Value);
+                cmd.Parameters.AddWithValue("@FechaHora_Pedido", pedido.FechaHoraPedido);
+                cmd.Parameters.AddWithValue("@Hora_Reserva", pedido.HoraReserva);
+                cmd.Parameters.AddWithValue("@Estado_Pedido", pedido.EstadoPedido);
+                cmd.Parameters.AddWithValue("@Tipo_Pedido", pedido.TipoPedido);
+                cmd.Parameters.AddWithValue("@TotalPago", pedido.TotalPago);
+                cmd.Parameters.AddWithValue("@TipoPago", pedido.TipoPago);
+
+                int resultado = cmd.ExecuteNonQuery();
+
+                // Obtener el PedidoID del último pedido insertado
+                pedido.PedidoID = (int)cmd.LastInsertedId;  // Asignar el PedidoID al objeto pedido
+
+                MessageBox.Show("Pedido guardado con ID: " + pedido.PedidoID);
+
+                return resultado;
+            }
+            catch (MySqlException ex)
+            {
+                MessageBox.Show("Error al registrar el pedido: " + ex.Message);
+                return -1;
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
+
+
+        public int RegistrarDetallePedido(DetallePedido detallePedido)
+        {
+            MySqlConnection conexion = Clases.CConexion.EstablecerConexion();
+            try
+            {
+                conexion.Open();
+
+                string sql = "INSERT INTO detalle_pedido (Pedido_ID, Producto_ID, CantidadProducto_Detalle, PrecioUnitario_Detalle, SubTotal) " +
+                             "VALUES (@PedidoID, @ProductoID, @CantidadProducto, @PrecioUnitario, @SubTotal)";
+                MySqlCommand comando = new MySqlCommand(sql, conexion);
+                comando.Parameters.AddWithValue("@PedidoID", detallePedido.PedidoID);
+                comando.Parameters.AddWithValue("@ProductoID", detallePedido.ProductoID);
+                comando.Parameters.AddWithValue("@CantidadProducto", detallePedido.CantidadProducto);
+                comando.Parameters.AddWithValue("@PrecioUnitario", detallePedido.PrecioUnitario);
+                comando.Parameters.AddWithValue("@SubTotal", detallePedido.SubTotal);
+
+                int resultado = comando.ExecuteNonQuery();
+                return resultado;
+            }
+            catch (MySqlException ex)
+            {
+                MessageBox.Show("Error al registrar el detalle del pedido: " + ex.Message);
+                return -1;
+            }
+            finally
+            {
+                conexion.Close();
+            }
+        }
+
+    
+
+
+    public int RegistroLocales(Locales local)
         {
             MySqlConnection conexion = Clases.CConexion.EstablecerConexion();
             try
@@ -204,63 +278,6 @@ namespace Grupo4_Clave4.Clases
             }
             return usr;
         }
-        public void GuardarPedido(Pedido pedido)
-        {
-            using (MySqlConnection conn = Clases.CConexion.EstablecerConexion())
-            {
-                conn.Open();
-                string query = "INSERT INTO pedidos (Usuario_ID, Local_ID, Evento_ID, FechaHora_Pedido, Hora_Reserva, Estado_Pedido, Tipo_Pedido, TotalPago, TipoPago) " +
-                               "VALUES (@Usuario_ID, @Local_ID, @Evento_ID, @FechaHora_Pedido, @Hora_Reserva, @Estado_Pedido, @Tipo_Pedido, @TotalPago, @TipoPago)";
-
-                using (MySqlCommand cmd = new MySqlCommand(query, conn))
-                {
-                    cmd.Parameters.AddWithValue("@Usuario_ID", pedido.UsuarioID);
-                    cmd.Parameters.AddWithValue("@Local_ID", pedido.LocalID);
-                    cmd.Parameters.AddWithValue("@Evento_ID", pedido.EventoID ?? (object)DBNull.Value);
-                    cmd.Parameters.AddWithValue("@FechaHora_Pedido", pedido.FechaHoraPedido);
-                    cmd.Parameters.AddWithValue("@Hora_Reserva", pedido.HoraReserva);
-                    cmd.Parameters.AddWithValue("@Estado_Pedido", pedido.EstadoPedido);
-                    cmd.Parameters.AddWithValue("@Tipo_Pedido", pedido.TipoPedido);
-                    cmd.Parameters.AddWithValue("@TotalPago", pedido.TotalPago);
-                    cmd.Parameters.AddWithValue("@TipoPago", pedido.TipoPago);
-
-                    // Ejecutar la inserción
-                    cmd.ExecuteNonQuery();
-
-                    // Obtener el PedidoID del último pedido insertado
-                    pedido.PedidoID = (int)cmd.LastInsertedId;  // Asignar el PedidoID al objeto pedido
-                }
-            }
-        }
-
-        public int RegistrarDetallePedido(DetallePedido detallePedido)
-        {
-            MySqlConnection conexion = Clases.CConexion.EstablecerConexion();
-            try
-            {
-                conexion.Open();
-
-                string sql = "INSERT INTO detalle_pedido (Pedido_ID, Producto_ID, CantidadProducto_Detalle, PrecioUnitario_Detalle, SubTotal) " +
-                             "VALUES (@PedidoID, @ProductoID, @CantidadProducto, @PrecioUnitario, @SubTotal)";
-                MySqlCommand comando = new MySqlCommand(sql, conexion);
-                comando.Parameters.AddWithValue("@PedidoID", detallePedido.PedidoID);
-                comando.Parameters.AddWithValue("@ProductoID", detallePedido.ProductoID);
-                comando.Parameters.AddWithValue("@CantidadProducto", detallePedido.CantidadProducto);
-                comando.Parameters.AddWithValue("@PrecioUnitario", detallePedido.PrecioUnitario);
-                comando.Parameters.AddWithValue("@SubTotal", detallePedido.SubTotal);
-
-                int resultado = comando.ExecuteNonQuery();
-                return resultado;
-            }
-            catch (MySqlException ex)
-            {
-                MessageBox.Show("Error al registrar el detalle del pedido: " + ex.Message);
-                return -1;
-            }
-            finally
-            {
-                conexion.Close();
-            }
-        }
+        
     }
 }

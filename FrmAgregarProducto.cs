@@ -19,12 +19,43 @@ namespace Grupo4_Clave4
 
         private void btnAgregar_Click(object sender, EventArgs e)
         {
-            Clases.Productos productos = new Clases.Productos();
-            productos.NombreProducto1 = txtNombreProducto.Text;
-            productos.CantidadProducto1 = int.Parse(txtCantidaProducto.Text);
-            productos.PrecioUnitarioProducto1 = double.Parse(txtPrecioProducto.Text);
-            productos.TipoProduto1 = cmbTipoProducto.SelectedItem?.ToString();
-            productos.HorarioDisponible1 = dtDisponibleProdcuto.Value.ToString("HH:mm:ss");
+            // Validaciones de entradas
+            if (Validaciones.EstaVacio(txtNombreProducto.Text) ||
+                Validaciones.EstaVacio(txtCantidaProducto.Text) ||
+                Validaciones.EstaVacio(txtPrecioProducto.Text))
+            {
+                MessageBox.Show("Por favor, rellena todos los campos obligatorios.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (!Validaciones.SoloLetras(txtNombreProducto.Text))
+            {
+                MessageBox.Show("El nombre del producto solo debe contener letras.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (!Validaciones.SoloNumeros(txtCantidaProducto.Text) || !Validaciones.SoloNumeros(txtPrecioProducto.Text))
+            {
+                MessageBox.Show("Los campos de cantidad y precio deben contener solo números.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (!Validaciones.EstaSeleccionado(cmbTipoProducto))
+            {
+                MessageBox.Show("Por favor, selecciona un tipo de producto.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // Si todas las validaciones pasan, continúa con el registro del producto
+            Clases.Productos productos = new Clases.Productos
+            {
+                NombreProducto1 = txtNombreProducto.Text,
+                CantidadProducto1 = int.Parse(txtCantidaProducto.Text),
+                PrecioUnitarioProducto1 = double.Parse(txtPrecioProducto.Text),
+                TipoProduto1 = cmbTipoProducto.SelectedItem?.ToString(),
+                HorarioDisponible1 = dtDisponibleProdcuto.Value.ToString("HH:mm:ss")
+            };
+
             try
             {
                 Clases.Control ctrl = new Clases.Control();
@@ -44,5 +75,7 @@ namespace Grupo4_Clave4
                 MessageBox.Show(ex.Message);
             }
         }
+
+
     }
 }

@@ -27,11 +27,33 @@ namespace Grupo4_Clave4
 
         private void btnRegistrar_Click(object sender, EventArgs e)
         {
-            Clases.Locales local = new Clases.Locales();
+            // Validaciones de entradas
+            if (Validaciones.EstaVacio(txtNombreLocal.Text) || Validaciones.EstaVacio(txtubicacion.Text))
+            {
+                MessageBox.Show("Por favor, rellena todos los campos obligatorios.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
 
-            local.NombreLocal1 = txtNombreLocal.Text;
-            local.UbicacionLocal1 = txtubicacion.Text;
-            local.Horario1 = timeLocal.Value.ToString("HH:mm:ss");
+            if (!Validaciones.SoloLetras(txtNombreLocal.Text))
+            {
+                MessageBox.Show("El nombre del local solo debe contener letras.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (!Validaciones.SoloLetras(txtubicacion.Text))
+            {
+                MessageBox.Show("La ubicación del local solo debe contener letras.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // Si todas las validaciones pasan, continúa con el registro del local
+            Clases.Locales local = new Clases.Locales
+            {
+                NombreLocal1 = txtNombreLocal.Text,
+                UbicacionLocal1 = txtubicacion.Text,
+                Horario1 = timeLocal.Value.ToString("HH:mm:ss")
+            };
+
             try
             {
                 Clases.Control ctrl = new Clases.Control();
@@ -43,8 +65,8 @@ namespace Grupo4_Clave4
                 }
                 else
                 {
-                    MessageBox.Show("registrado", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    ObtenerDatos();
+                    MessageBox.Show("Local registrado", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    ObtenerDatos();  // Llamada al método para actualizar los datos después del registro
                 }
             }
             catch (Exception ex)
@@ -52,5 +74,6 @@ namespace Grupo4_Clave4
                 MessageBox.Show(ex.Message);
             }
         }
+
     }
 }

@@ -37,13 +37,6 @@ namespace Grupo4_Clave4
             formularioEstudiante.Show();
             this.Hide(); // Ocultar el formulario de inicio de sesión
         }
-
-        // Evento para iniciar sesión y abrir el menú adecuado
-        private void btnInicioSesion_Click(object sender, EventArgs e)
-        {
-            
-        }
-
         // Evento para abrir el formulario de registro de usuarios
         private void label4_Click(object sender, EventArgs e)
         {
@@ -52,10 +45,24 @@ namespace Grupo4_Clave4
             this.Visible = false;
         }
 
-        private void btnInicioSesion_Click_1(object sender, EventArgs e)
+        private void btnInicioSesion_Click(object sender, EventArgs e)
         {
             string usuario = txtUsuario.Text;
             string contraseña = txtContraseña.Text;
+
+            // Validaciones
+            if (Validaciones.EstaVacio(usuario) || Validaciones.EstaVacio(contraseña))
+            {
+                MessageBox.Show("Por favor, ingresa el usuario y la contraseña.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // Si deseas validar que el usuario solo contenga letras o números, puedes usar esta validación:
+            if (!Validaciones.SoloLetras(usuario) && !Validaciones.SoloNumeros(usuario))
+            {
+                MessageBox.Show("El nombre de usuario solo puede contener letras y números.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
 
             try
             {

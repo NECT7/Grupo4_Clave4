@@ -60,23 +60,70 @@ namespace Grupo4_Clave4
 
         private void btnAgregar_Click(object sender, EventArgs e)
         {
-            Clases.Pedido pedido = new Clases.Pedido();
+            // Validación: Verificar que se seleccionó un Local
+            if (cmbLocal.SelectedIndex == -1)
+            {
+                MessageBox.Show("Por favor, selecciona un local.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
 
-            pedido.UsuarioID = Clases.Session.UserID;
-            pedido.LocalID = int.Parse(cmbLocal.SelectedItem.ToString());
-            pedido.EventoID = int.Parse(eventoID.Value.ToString());
-            pedido.FechaHoraPedido = DateTime.Now;
-            pedido.HoraReserva = dtReserva.Value.TimeOfDay;
-            pedido.EstadoPedido = "Pendiente";
-            pedido.TipoPedido = "Mesa";
-            pedido.TotalPago = (decimal)double.Parse(txtTotal.Text);
-            pedido.TipoPago = cmbTipoPago.SelectedItem.ToString();
+            // Validación: Verificar que se seleccionó un Tipo de Pago
+            if (cmbTipoPago.SelectedIndex == -1)
+            {
+                MessageBox.Show("Por favor, selecciona un tipo de pago.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // Validación: Verificar que el campo Total tiene un valor válido
+            if (string.IsNullOrWhiteSpace(txtTotal.Text) || !decimal.TryParse(txtTotal.Text, out decimal totalPago))
+            {
+                MessageBox.Show("Por favor, ingresa un monto total válido.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // Validación de antojitos (2:00 p.m. a 4:00 p.m., máximo 3 platillos)
+            DateTime ahora = DateTime.Now;
+            bool contieneAntojitos = dtgTuPedido.Rows.Cast<DataGridViewRow>().Any(row => row.Cells[0]?.Value.ToString() == "Antojitos");
+            int cantidadAntojitos = dtgTuPedido.Rows.Cast<DataGridViewRow>()
+                .Where(row => row.Cells[0]?.Value.ToString() == "Antojitos")
+                .Sum(row => Convert.ToInt32(row.Cells[1].Value));
+
+            if (contieneAntojitos)
+            {
+                // Verificar horario de antojitos
+                if (!(ahora.TimeOfDay >= new TimeSpan(14, 0, 0) && ahora.TimeOfDay <= new TimeSpan(16, 0, 0)))
+                {
+                    MessageBox.Show("Los antojitos solo pueden pedirse entre las 2:00 p.m. y las 4:00 p.m.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                // Verificar cantidad máxima de antojitos
+                if (cantidadAntojitos > 3)
+                {
+                    MessageBox.Show("No puedes pedir más de 3 antojitos por pedido.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+            }
+
+            // Continuar con la creación del pedido después de pasar las validaciones
+            Clases.Pedido pedido = new Clases.Pedido
+            {
+                UsuarioID = Clases.Session.UserID,
+                LocalID = int.Parse(cmbLocal.SelectedItem.ToString()),
+                EventoID = int.Parse(eventoID.Value.ToString()),
+                FechaHoraPedido = DateTime.Now,
+                HoraReserva = dtReserva.Value.TimeOfDay,
+                EstadoPedido = "Pendiente",
+                TipoPedido = "Mesa",
+                TotalPago = totalPago,
+                TipoPago = cmbTipoPago.SelectedItem.ToString()
+            };
 
             // Guardar el pedido y asignar el PedidoID
             Clases.Crud crud = new Clases.Crud();
-            int resultado = crud.GuardarPedido(pedido);  // Ahora esto asigna el PedidoID al objeto pedido
+            int resultado = crud.GuardarPedido(pedido);
 
-            // Verifica si el PedidoID fue asignado correctamente
+            // Verificación de guardado
             if (resultado <= 0 || pedido.PedidoID == 0)
             {
                 MessageBox.Show("Error al guardar el pedido.");
@@ -86,11 +133,11 @@ namespace Grupo4_Clave4
             // Registrar el detalle del pedido
             foreach (DataGridViewRow row in dtgTuPedido.Rows)
             {
-                if (row.Cells[0]?.Value != null && row.Cells[1]?.Value != null) // Nombre_Producto está en la columna 0 y Cantidad en la columna 1
+                if (row.Cells[0]?.Value != null && row.Cells[1]?.Value != null)
                 {
                     string nombreProducto = row.Cells[0].Value.ToString();
                     int cantidad = Convert.ToInt32(row.Cells[1].Value);
-                    decimal precioUnitario = Convert.ToDecimal(row.Cells[2].Value); // PrecioUnitario está en la columna 2
+                    decimal precioUnitario = Convert.ToDecimal(row.Cells[2].Value);
                     decimal subTotal = precioUnitario * cantidad;
 
                     // Obtener Producto_ID usando el diccionario
@@ -98,7 +145,7 @@ namespace Grupo4_Clave4
                     {
                         Clases.DetallePedido detalle = new Clases.DetallePedido
                         {
-                            PedidoID = pedido.PedidoID, // Ahora puedes usar el PedidoID correctamente
+                            PedidoID = pedido.PedidoID,
                             ProductoID = productoID,
                             CantidadProducto = cantidad,
                             PrecioUnitario = precioUnitario,
@@ -107,11 +154,7 @@ namespace Grupo4_Clave4
 
                         int resultadoDetalle = crud.RegistrarDetallePedido(detalle);
 
-                        if (resultadoDetalle > 0)
-                        {
-                            MessageBox.Show("Producto agregado al detalle del pedido con éxito.");
-                        }
-                        else
+                        if (resultadoDetalle <= 0)
                         {
                             MessageBox.Show("Error al agregar el producto al detalle del pedido.");
                         }
@@ -124,8 +167,8 @@ namespace Grupo4_Clave4
             }
 
             MessageBox.Show("Pedido guardado con éxito.");
-        
-    }
+        }
+
 
         private void dgvProductosDisponibles_CellClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -181,16 +224,16 @@ namespace Grupo4_Clave4
                 int cantidad = (int)numCantidad.Value;
 
                 // Asignar el valor de cantidad a la celda correspondiente
-                selectedRow.Cells[1].Value = cantidad; // Cantidad está en la columna 1
+                selectedRow.Cells[1].Value = cantidad;
 
                 // Obtener el valor de PrecioUnitario
-                decimal precioUnitario = Convert.ToDecimal(selectedRow.Cells[2].Value); // PrecioUnitario está en la columna 2
+                decimal precioUnitario = Convert.ToDecimal(selectedRow.Cells[2].Value);
 
                 // Calcular el total
                 decimal total = cantidad * precioUnitario;
 
                 // Asignar el valor del total a la celda correspondiente
-                selectedRow.Cells[3].Value = total; // Total está en la columna 3
+                selectedRow.Cells[3].Value = total;
 
                 // Recalcular el total general y actualizar txtTotal
                 CalcularTotalGeneral();
@@ -199,7 +242,6 @@ namespace Grupo4_Clave4
             {
                 MessageBox.Show("Por favor, seleccione una fila en la tabla 'Tu Pedido'.");
             }
-
         }
     }
 }

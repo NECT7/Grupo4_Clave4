@@ -61,21 +61,21 @@ namespace Grupo4_Clave4
         private void btnAgregar_Click(object sender, EventArgs e)
         {
             // Validación: Verificar que se seleccionó un Local
-            if (cmbLocal.SelectedIndex == -1)
+            if (!Validaciones.EstaSeleccionado(cmbLocal))
             {
                 MessageBox.Show("Por favor, selecciona un local.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
             // Validación: Verificar que se seleccionó un Tipo de Pago
-            if (cmbTipoPago.SelectedIndex == -1)
+            if (!Validaciones.EstaSeleccionado(cmbTipoPago))
             {
                 MessageBox.Show("Por favor, selecciona un tipo de pago.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
             // Validación: Verificar que el campo Total tiene un valor válido
-            if (string.IsNullOrWhiteSpace(txtTotal.Text) || !decimal.TryParse(txtTotal.Text, out decimal totalPago))
+            if (Validaciones.EstaVacio(txtTotal.Text) || !Validaciones.SoloNumeros(txtTotal.Text) || !decimal.TryParse(txtTotal.Text, out decimal totalPago))
             {
                 MessageBox.Show("Por favor, ingresa un monto total válido.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
@@ -84,21 +84,18 @@ namespace Grupo4_Clave4
             // Validación de antojitos (2:00 p.m. a 4:00 p.m., máximo 3 platillos)
             DateTime ahora = DateTime.Now;
             bool contieneAntojitos = dtgTuPedido.Rows.Cast<DataGridViewRow>().Any(row => row.Cells[0]?.Value.ToString() == "Antojitos");
-            int cantidadAntojitos = dtgTuPedido.Rows.Cast<DataGridViewRow>()
-                .Where(row => row.Cells[0]?.Value.ToString() == "Antojitos")
-                .Sum(row => Convert.ToInt32(row.Cells[1].Value));
 
             if (contieneAntojitos)
             {
                 // Verificar horario de antojitos
-                if (!(ahora.TimeOfDay >= new TimeSpan(14, 0, 0) && ahora.TimeOfDay <= new TimeSpan(16, 0, 0)))
+                if (!Validaciones.EsHorarioAntojitos(ahora))
                 {
                     MessageBox.Show("Los antojitos solo pueden pedirse entre las 2:00 p.m. y las 4:00 p.m.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
                 // Verificar cantidad máxima de antojitos
-                if (cantidadAntojitos > 3)
+                if (!Validaciones.LímiteDeAntojitos(dtgTuPedido.Rows.Cast<DataGridViewRow>().ToList(), 3))
                 {
                     MessageBox.Show("No puedes pedir más de 3 antojitos por pedido.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
@@ -168,8 +165,6 @@ namespace Grupo4_Clave4
 
             MessageBox.Show("Pedido guardado con éxito.");
         }
-
-
         private void dgvProductosDisponibles_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             // Verificar que la celda seleccionada no sea el encabezado
